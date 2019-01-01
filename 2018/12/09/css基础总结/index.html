@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="吴立志">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="吴立志">
+    
+    <meta name="keywords" content="c,c++,html,css,js,node">
+    
+    <meta name="description" content="程序猿一枚">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>css基础总结 · 吴立志的博客</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("../../../../font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="../../../../css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="../../../../css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="../../../../scripts/main.js" as="script">
+    <link rel="preload" as="font" href="../../../../font/Oswald-Regular.ttf" crossorigin="">
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="../../../../index.html">吴立志的博客</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">css基础总结</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">吴立志的博客</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(../../../../intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            css基础总结
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="css">css</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/12/09</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "../../../../lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="../../../../assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="一-常见-标签分类"><a href="#一-常见-标签分类" class="headerlink" title="一 常见:标签分类"></a>一 常见:标签分类</h3><ul>
+<li><code>block:</code> div h* ul li dt dd p<blockquote>
+<p>独占一行,可以设置width,height,margin和padding属性</p>
+</blockquote>
+</li>
+<li><code>inline:</code> span u a em b i u em<blockquote>
+<p>宽度随元素的内容而变化,水平方向的margin和padding属性有效果,垂直没效果</p>
+</blockquote>
+</li>
+<li><code>inline-block:</code> input img button texterea label<blockquote>
+<p>表现inline,还可以设置width,height,margin和padding属性,但之间会有<strong>空白缝隙</strong></p>
+</blockquote>
+</li>
+<li><p><code>互转方式:</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;display:inline&#125; /\*display:block\inline\*/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>技巧:</code></p>
+</li>
+</ul>
+<ol>
+<li>文字类标签(p,h*,dt)内不放块级元素</li>
+<li>a里不放a,但可以放block元素</li>
+</ol>
+<h3 id="二-选择器分类"><a href="#二-选择器分类" class="headerlink" title="二 选择器分类"></a>二 选择器分类</h3><blockquote>
+<p>选择器 {属性key:value;属性key:value;}</p>
+</blockquote>
+<ul>
+<li>标签选择器(<strong>常用</strong>)</li>
+<li>类选择器(.class <strong>常用</strong>)</li>
+<li>id选择器(#)</li>
+<li><p>通配符选择器(*)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*&#123;<span class="attribute">margin</span>:<span class="number">0</span>; <span class="attribute">padding</span>:<span class="number">0</span>&#125;<span class="comment">/*测试使用*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后代选择器 (空格)</p>
+</li>
+<li>子代选择器(&gt;)</li>
+<li>交集选择器(e.class e#id)</li>
+<li><p>伪类选择器(:link(未点) :hover(移上去) :active(按下) :visited(点击后))</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.text</span>&#123;<span class="attribute">color</span>:red&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>并集选择器(,)</p>
+</li>
+</ul>
+<h3 id="三-字体样式"><a href="#三-字体样式" class="headerlink" title="三 字体样式"></a>三 字体样式</h3><p><code>单位:</code> px(像素) em(本文字体大小)<br><code>font-style:</code> normal /*italic*/<br><code>font-weight:</code> 700 /*300*/<br><code>font-size:</code> 16px<br><code>font-family:</code> “microsoft yahei”, Arial;<br><code>font:</code>font-style font-weight *font-size *font-family /*连写*/</p>
+<h3 id="四-文本样式"><a href="#四-文本样式" class="headerlink" title="四 文本样式"></a>四 文本样式</h3><p><code>color:</code> red /*#fff #fafafa rgb(255,0,0)*/<br><code>line-height:</code> 33px /*顶 中 基 底*/</p>
+<p><code>text-align:</code> left /*right center <strong>文字\行内元素\行内块</strong>居中 */<br><code>text-indent:</code> 2em /*首行缩进2个字*/<br><code>text-decoration:</code> none /*underline overline line-through*/<br><code>技巧:</code> li去除默认前面点的方法:list-style:none</p>
+<h3 id="五-背景"><a href="#五-背景" class="headerlink" title="五 背景"></a>五 背景</h3><p><code>background-color:</code> black /*透明参数:rgba(0,0,0,.3)*/<br><code>background-image:</code> url(1.jpg)<br><code>background-repeat:</code> no-repeat /*repeat repeat-x repeat-y*/<br><code>background-attachment:</code> scroll /*fixed*/<br><code>background-position:</code> *x y /*top button right left px,只写一个时另一个默认center*/<br><code>background:</code> background-color background-image background-repeat background-attachment background-position /*连写*/</p>
+<p><code>技巧:</code></p>
+<ol>
+<li>用于小图标(比如无序列表前面的小图标\搜索栏的小图片中)</li>
+<li>用于局部背景</li>
+<li>用于精灵图</li>
+</ol>
+<h3 id="六-CSS三大特性"><a href="#六-CSS三大特性" class="headerlink" title="六 CSS三大特性"></a>六 CSS三大特性</h3><ol>
+<li>CSS层叠性(后者覆盖前者)</li>
+<li>继承性(color,font-*,line-*,text-*)</li>
+<li><p>优先级<br>权重:<br>无穷大=!important /*div {color:blue!important}*/<br>1.0.0.0=行内样式<br>0.1.0.0=id<br>0.0.1.0=class,伪类<br>0.0.0.1=标签<br>0.0.0.0=*,继承样式</p>
+<h3 id="七-盒子模型"><a href="#七-盒子模型" class="headerlink" title="七 盒子模型"></a>七 盒子模型</h3></li>
+<li><p>border<br><code>border-width:</code>1px<br><code>border-style:</code>solid /*hidden\solid\lodash*/<br><code>border-color:</code>red<br><code>border:</code> *border-width *border-style *border-color /*连写*/<br><code>border-left:</code> <code>border-right:</code> <code>border-top:</code> <code>border-button:</code><br><code>border-radius:</code> 50%<br><code>技巧:</code> border:0 /*去除所有边框*/</p>
+</li>
+<li>padding<br><code>padding:</code>上 右 下 左 /*1-上右下左 2-上下 右左 3-上下 右 左, 值:px,auto(自动充满),方位*/<br><code>padding-*方位:</code><br><code>技巧:</code><br>1.padding会撑开<strong>带有width\height</strong>的盒子(width,height配置的是内容区域)</li>
+<li>margin<br><code>margin:</code>上 右 下 左 /*1-上右下左 2-上下 右左 3-上下 右 左, 值:px,auto(自动充满),方位*/<br><code>margin-*方位:</code><br><code>技巧:</code><br>1.盒子居中:margin:0 auto<br>2.外边距合并(以大为准,并不是相加的关系)<br>3.外边距塌陷BUG(子盒子加margin-top,解决办法:1.父加padding-top 2.父加border-top 3.父加overflow:hidden)<br>4.元素实际大小:content + padding + border</li>
+<li>盒子阴影<br><code>box-shadow:</code> *h-shadow *v-shadow blur(虚实程度) spread(影子大小) color inset</li>
+</ol>
+<h3 id="八-浮动"><a href="#八-浮动" class="headerlink" title="八 浮动"></a>八 浮动</h3><p><code>css定位机制:</code>普通流(标准流),浮动,定位<br><code>float:</code>none /* left right */<br><code>核心:</code><strong>浮</strong>于上方,不占标准流空间,用于横向布局<br><code>技巧:</code><br> 1.和父标签搭配使用,以父标签<strong>内容</strong>内浮动<br> 2.一行全浮<br> 3.浮动后,元素附加display:inline-block属性.<br> 4.不完全脱离,底下如有文字图片会受影响.<br><code>清除浮动:</code><br> 1.给父标签设置固定高度.<br> 2.额外标签法(子元素最后加一个空标签)<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"clear:both"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p> 3.父元素添加overflow属性 /*hidden auto scroll*/<br> 4.伪元素(给标签添加class属性即可)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line"> <span class="attribute">content</span>:<span class="string">""</span>;</span><br><span class="line"> <span class="attribute">display</span>:block;</span><br><span class="line"> <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line"> <span class="attribute">clear</span>:both;</span><br><span class="line"> <span class="attribute">visibility</span>:hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span> &#123;</span><br><span class="line"> *zoom:1 /* 星号被IE7以下版本识别 zoom:1是IE6清楚浮动的方式 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="九-定位"><a href="#九-定位" class="headerlink" title="九 定位"></a>九 定位</h3><p><code>定位:</code>边偏移(top botton left right)+定位模式(position)<br><code>position:</code>static /* relative absolute fixed*/<br><code>核心:</code><br> 1.除static外,其他完全脱离文档流.<br> 2.relative占茅坑,相对于自身定位.<br> 3.absolute不占坑,相对于就近定位.<br> 4.fixed,不占坑,相对于浏览器.<br> 5.z-index:数字,控制叠放顺序,值越大越前.<br><code>技巧:</code><br> 1.子绝父相<br> 2.定位盒子居中:left:50%;margin-left:<strong>-</strong>自身宽度/2</p>
+<h3 id="十-秘籍"><a href="#十-秘籍" class="headerlink" title="十 秘籍"></a>十 秘籍</h3><p><code>①居中汇总:</code><br>文字\行内元素\行内块<br> 水平居中:text-align<br> 垂直居中:line-heght=父标签高度<br>盒子居中:margin:0 auto<br>定位盒子居中:left:50%;margin-left:<strong>-</strong>自身宽度/2<br><code>②边框叠加:</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line"> <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line"> <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line"> <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="number">#ccc</span>;</span><br><span class="line"> <span class="attribute">float</span>:left;</span><br><span class="line"> <span class="attribute">margin-left</span>:-<span class="number">1px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line"> <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#f40</span>;</span><br><span class="line"> <span class="attribute">position</span>: relative; <span class="comment">/*相对定位比标准流默认高一层*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>③显示与隐藏:</code></p>
+<ol>
+<li>display(隐藏后,不占坑)<br><code>display:</code> none(隐藏) block(显示)</li>
+<li>visibility(隐藏后,占茅坑)<br><code>visibility:</code>hidden(隐藏) visible(显示)</li>
+<li>overflow(溢出隐藏-文字\行内元素\行内块)<br><code>overflow:</code> visible(默认) hidden(隐藏) scroll(滚动) auto(visible\scroll) </li>
+</ol>
+<p><code>④div内的图片问题:</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">vertical-align</span>: <span class="selector-tag">bottom</span>;<span class="comment">/*baseline(默认) middle top*/</span></span><br><span class="line"><span class="selector-tag">border</span><span class="selector-pseudo">:0</span>;</span><br></pre></td></tr></table></figure></p>
+<p><code>⑤:溢出部分显示省略号</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">white-space</span>: <span class="selector-tag">nowrap</span> <span class="comment">/*normal nowrap-强制一行显示*/</span></span><br><span class="line"><span class="selector-tag">text-overflow</span>: <span class="selector-tag">ellipsis</span> <span class="comment">/*clip ellipsis-单对象文本溢出时显示省略号*/</span></span><br><span class="line"><span class="selector-tag">overflow</span><span class="selector-pseudo">:hidden</span></span><br></pre></td></tr></table></figure></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://witba.com">吴立志</a>
+            </p><p>原文链接：<a href="https://witba.com/2018/12/09/css基础总结/">https://witba.com/2018/12/09/css基础总结/</a>
+            </p><p>发表日期：<a href="https://witba.com/2018/12/09/css基础总结/">December 9th 2018, 4:15:23 pm</a>
+            </p><p>更新日期：<a href="https://witba.com/2018/12/09/css基础总结/">December 17th 2018, 10:11:23 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="../../../../2019/01/01/Linux GDB调试/" title="Linux GDB调试(C\C++)">
+                    <div class="nextTitle">Linux GDB调试(C\C++)</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:7842376@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/wlz-light" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-常见-标签分类"><span class="toc-number">1.</span> <span class="toc-text">一 常见:标签分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-选择器分类"><span class="toc-number">2.</span> <span class="toc-text">二 选择器分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-字体样式"><span class="toc-number">3.</span> <span class="toc-text">三 字体样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-文本样式"><span class="toc-number">4.</span> <span class="toc-text">四 文本样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-背景"><span class="toc-number">5.</span> <span class="toc-text">五 背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六-CSS三大特性"><span class="toc-number">6.</span> <span class="toc-text">六 CSS三大特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七-盒子模型"><span class="toc-number">7.</span> <span class="toc-text">七 盒子模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#八-浮动"><span class="toc-number">8.</span> <span class="toc-text">八 浮动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#九-定位"><span class="toc-number">9.</span> <span class="toc-text">九 定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十-秘籍"><span class="toc-number">10.</span> <span class="toc-text">十 秘籍</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href="../../2019/01/01/Linux GDB调试/">Linux GDB调试(C\C++)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/09</span><a class="archive-post-title" href="../../2018/12/09/css基础总结/">css基础总结</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
+    
+        <span class="sidebar-tag-name" data-tags="linxu c/c++ gdb cgdb 调试"><span class="iconfont-archer">&#xe606;</span>linxu c/c++ gdb cgdb 调试</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "吴立志"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="../../../../lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="../../../../scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="../../../../scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
